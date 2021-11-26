@@ -1,8 +1,27 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.18.0'
+    }
+}
+
 plugins {
     id 'java'
 }
 
-group = 'de.vinogradoff'
+apply plugin: "com.vanniktech.maven.publish"
+
+allprojects {
+    plugins.withId("com.vanniktech.maven.publish") {
+        mavenPublish {
+            sonatypeHost = "S01"
+        }
+    }
+}
+
+group = 'io.github.vinogradoff'
 version = '0.0.1-SNAPSHOT'
 
 java {
