@@ -1,4 +1,4 @@
-package de.vinogradoff.testdatabroker.client;
+package io.github.vinogradoff.testdatabroker.client;
 
 
 import org.assertj.core.api.Assertions;
