@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group = 'de.vinogradoff'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.squareup.okhttp3:okhttp:4.9.0"
+
+    testImplementation "org.junit.jupiter:junit-jupiter:5.8.1"
+    testImplementation 'org.assertj:assertj-core:3.21.0'
+
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.1"
+}
+
+test {
+    useJUnitPlatform()
+}
