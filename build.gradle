@@ -21,8 +21,34 @@ allprojects {
     }
 }
 
+mavenPublishing{
+    pom{
+        name='Test Data Broker Client (Java)'
+        description='Java Client for Test Data Broker'
+        url = 'https://github.com/vinogradoff/test-data-broker-client'
+        inceptionYear = '2021'
+        licenses {
+            license {
+                name = 'MIT'
+                url = 'https://opensource.org/licenses/MIT'
+            }
+        }
+        developers {
+            developer {
+                id = 'vinogradoff'
+                name = 'Alexei Vinogradov'
+            }
+        }
+        scm {
+            connection = 'scm:git@github.com:vinogradoff/test-data-broker-client-java.git'
+            developerConnection = 'scm:git@github.com:vinogradoff/test-data-broker-client-java.git'
+            url = 'https://github.com/vinogradoff/test-data-broker'
+        }
+    }
+}
+
 group = 'io.github.vinogradoff'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
     toolchain {
