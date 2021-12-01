@@ -4,19 +4,32 @@ import okhttp3.*;
 
 import java.io.*;
 
-public class TestDataBrokerClientImpl implements TestDataBrokerClient {
+public class DefaultTestDataBrokerClient implements TestDataBrokerClient {
 
     OkHttpClient client;
+    String baseUrl;
 
-    public TestDataBrokerClientImpl() {
+    /**
+     * initialized with http://localhost:8080
+     */
+    public DefaultTestDataBrokerClient() {
         client = new OkHttpClient();
+        baseUrl = "http://localhost:8080";
     }
 
+    /***
+     *
+     * @param baseUrl base url for Test Data Broker installation
+     */
+    public DefaultTestDataBrokerClient(String baseUrl) {
+        client = new OkHttpClient();
+        this.baseUrl = baseUrl;
+    }
 
     public void writeData(String dictionary, String key, String value) throws IOException {
         RequestBody body = RequestBody.create(new byte[]{});
         Request req = new Request.Builder()
-                .url("http://localhost:8080/api/write/" + dictionary + "/" + key + "?value=" + value)
+                .url(baseUrl + "/api/write/" + dictionary + "/" + key + "?value=" + value)
                 .post(body)
                 .build();
 
@@ -25,7 +38,7 @@ public class TestDataBrokerClientImpl implements TestDataBrokerClient {
 
     public String readData(String dictionary, String key) throws IOException {
         Request req = new Request.Builder()
-                .url("http://localhost:8080/api/read/" + dictionary + "/" + key)
+                .url(baseUrl + "/api/read/" + dictionary + "/" + key)
                 .build();
 
         return client.newCall(req).execute().body().string();
@@ -35,7 +48,7 @@ public class TestDataBrokerClientImpl implements TestDataBrokerClient {
     public String claimData(String dictionary, String key) throws IOException {
         RequestBody body = RequestBody.create(new byte[]{});
         Request req = new Request.Builder()
-                .url("http://localhost:8080/api/claim/" + dictionary + "/" + key)
+                .url(baseUrl + "/api/claim/" + dictionary + "/" + key)
                 .put(body)
                 .build();
 
