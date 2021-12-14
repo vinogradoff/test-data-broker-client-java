@@ -8,7 +8,7 @@ import java.io.*;
 
 public class TestDataBrokerClientTest {
 
-    TestDataBrokerClient client = new TestDataBrokerClientImpl();
+    TestDataBrokerClient client = new DefaultTestDataBrokerClient();
 
     @Test
     void shouldWriteDataInRepo() throws IOException {
