@@ -27,7 +27,8 @@ public class DefaultTestDataBrokerClient implements TestDataBrokerClient {
     }
 
     public void writeData(String dictionary, String key, String value) throws IOException {
-        RequestBody body = RequestBody.create(new byte[]{});
+        // use deprecated version to ensure compatibility with Selenide 5 and Maven (which us old okhttp 3.14)
+        RequestBody body = RequestBody.create(null, new byte[]{});
         Request req = new Request.Builder()
                 .url(baseUrl + "/api/write/" + dictionary + "/" + key + "?value=" + value)
                 .post(body)
@@ -46,7 +47,8 @@ public class DefaultTestDataBrokerClient implements TestDataBrokerClient {
     }
 
     public String claimData(String dictionary, String key) throws IOException {
-        RequestBody body = RequestBody.create(new byte[]{});
+        // use deprecated version to ensure compatibility with Selenide 5 and Maven (which us old okhttp 3.14)
+        RequestBody body = RequestBody.create(null, new byte[]{});
         Request req = new Request.Builder()
                 .url(baseUrl + "/api/claim/" + dictionary + "/" + key)
                 .put(body)
