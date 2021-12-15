@@ -1,5 +1,6 @@
 package io.github.vinogradoff.testdatabroker.client;
 
+import io.github.vinogradoff.testdatabroker.exception.*;
 import okhttp3.*;
 
 import java.io.*;
@@ -41,8 +42,11 @@ public class DefaultTestDataBrokerClient implements TestDataBrokerClient {
         Request req = new Request.Builder()
                 .url(baseUrl + "/api/read/" + dictionary + "/" + key)
                 .build();
-
-        return client.newCall(req).execute().body().string();
+        Response resp = client.newCall(req).execute();
+        if (resp.code() != 200 && resp.code() != 204) {
+            throw new NotFoundException("Code:" + resp.code() + " Message:" + resp.body().string());
+        }
+        return resp.body().string();
 
     }
 
@@ -54,6 +58,10 @@ public class DefaultTestDataBrokerClient implements TestDataBrokerClient {
                 .put(body)
                 .build();
 
-        return client.newCall(req).execute().body().string();
+        Response resp = client.newCall(req).execute();
+        if (resp.code() != 200 && resp.code() != 204) {
+            throw new NotFoundException("Code:" + resp.code() + " Message:" + resp.body().string());
+        }
+        return resp.body().string();
     }
 }
