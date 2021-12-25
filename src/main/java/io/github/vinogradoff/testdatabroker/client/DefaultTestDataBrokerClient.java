@@ -50,6 +50,41 @@ public class DefaultTestDataBrokerClient implements TestDataBrokerClient {
 
     }
 
+    public void clearData(String dictionary, String key) throws IOException {
+        // use deprecated version to ensure compatibility with Selenide 5 and Maven (which us old okhttp 3.14)
+        RequestBody body = RequestBody.create(null, new byte[]{});
+        Request req = new Request.Builder()
+                .url(baseUrl + "/api/clear/" + dictionary + "/" + key)
+                .put(body)
+                .build();
+        Response resp = client.newCall(req).execute();
+        if (resp.code() != 200 && resp.code() != 204) {
+            throw new NotFoundException("Code:" + resp.code() + " Message:" + resp.body().string());
+        }
+    }
+
+    public void deleteKey(String dictionary, String key) throws IOException {
+        Request req = new Request.Builder()
+                .url(baseUrl + "/api/delete/" + dictionary + "/" + key)
+                .delete()
+                .build();
+        Response resp = client.newCall(req).execute();
+        if (resp.code() != 200 && resp.code() != 204) {
+            throw new NotFoundException("Code:" + resp.code() + " Message:" + resp.body().string());
+        }
+    }
+
+    public void deleteDictionary(String dictionary) throws IOException {
+        Request req = new Request.Builder()
+                .url(baseUrl + "/api/delete/" + dictionary)
+                .delete()
+                .build();
+        Response resp = client.newCall(req).execute();
+        if (resp.code() != 200 && resp.code() != 204) {
+            throw new NotFoundException("Code:" + resp.code() + " Message:" + resp.body().string());
+        }
+    }
+
     public String claimData(String dictionary, String key) throws IOException {
         // use deprecated version to ensure compatibility with Selenide 5 and Maven (which us old okhttp 3.14)
         RequestBody body = RequestBody.create(null, new byte[]{});
